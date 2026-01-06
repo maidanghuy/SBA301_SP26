@@ -3,7 +3,7 @@ function About() {
     <div>
       <h2>About Us</h2>
       <p>
-        This project is built using <strong>React + Vite</strong>
+        This project is built using <strong>React + Vite </strong>
         as part of Slot01 practice.
       </p>
 
