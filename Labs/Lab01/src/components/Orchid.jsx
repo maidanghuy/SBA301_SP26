@@ -3,8 +3,10 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 
+import OrchidDetailModal from "./OrchidDetailModal";
+
 function Orchid({ orchid }) {
-  const [setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
@@ -35,6 +37,12 @@ function Orchid({ orchid }) {
           </Button>
         </Card.Body>
       </Card>
+
+      <OrchidDetailModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        orchid={orchid}
+      />
     </>
   );
 }
