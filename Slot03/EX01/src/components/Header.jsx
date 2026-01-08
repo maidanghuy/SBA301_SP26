@@ -9,7 +9,7 @@ function Header() {
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
-          Slot01 React App
+          Slot03 React App
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

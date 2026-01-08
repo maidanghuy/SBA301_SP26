@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
+import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 
@@ -14,15 +15,7 @@ function App() {
 
         <main className="flex-fill p-4">
           <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <h2>Welcome to Slot03 - EX1</h2>
-                  <p>This is the main content area.</p>
-                </>
-              }
-            />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
