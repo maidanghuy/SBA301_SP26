@@ -2,6 +2,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { useSearchParams } from "react-router-dom";
+import CategoryFilter from "./CategoryFilter";
 
 import Orchid from "./Orchid";
 import orchidsData from "../data/orchids";
@@ -13,6 +14,8 @@ function OrchidList() {
   const category = searchParams.get("category") || "All";
   const sortBy = searchParams.get("sort") || "name-asc";
   const query = searchParams.get("q") || "";
+
+  const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c.name]));
 
   // 1️⃣ FILTER
   const filteredOrchids = orchidsData.filter((o) => {
@@ -28,40 +31,42 @@ function OrchidList() {
     switch (sortBy) {
       case "name-asc":
         return a.orchidName.localeCompare(b.orchidName);
+
       case "name-desc":
         return b.orchidName.localeCompare(a.orchidName);
-      case "category":
-        return a.category.localeCompare(b.category);
+
+      case "category": {
+        const catA = categoryMap[a.categoryId] || "";
+        const catB = categoryMap[b.categoryId] || "";
+        return catA.localeCompare(catB);
+      }
+
       case "special":
         return b.isSpecial - a.isSpecial;
+
       default:
         return 0;
     }
   });
+
+  const handleCategoryChange = (newCategory) => {
+    setSearchParams({
+      category: newCategory,
+      sort: sortBy,
+      q: query,
+    });
+  };
 
   return (
     <>
       {/* ===== FILTER & SORT ===== */}
       <Row className="mb-4">
         <Col md={4}>
-          <Form.Select
+          <CategoryFilter
+            categories={categories}
             value={category}
-            onChange={(e) =>
-              setSearchParams({
-                category: e.target.value,
-                sort: sortBy,
-                q: query,
-              })
-            }
-          >
-            <option value="All">All Categories</option>
-
-            {categories.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </Form.Select>
+            onChange={handleCategoryChange}
+          />
         </Col>
 
         <Col md={4}>
@@ -71,6 +76,7 @@ function OrchidList() {
               setSearchParams({
                 category,
                 sort: e.target.value,
+                q: query,
               })
             }
           >
