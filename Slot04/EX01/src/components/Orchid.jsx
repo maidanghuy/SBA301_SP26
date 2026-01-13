@@ -4,9 +4,12 @@ import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 
 import OrchidDetailModal from "./OrchidDetailModal";
+import categories from "../data/categories";
 
 function Orchid({ orchid }) {
   const [showModal, setShowModal] = useState(false);
+
+  const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c.name]));
 
   return (
     <>
@@ -25,7 +28,7 @@ function Orchid({ orchid }) {
           </Card.Title>
 
           <Card.Subtitle className="mb-2 text-muted">
-            Category: {orchid.category}
+            Category: {categoryMap[orchid.categoryId]}
           </Card.Subtitle>
 
           <Card.Text className="flex-grow-1" style={{ fontSize: "0.9rem" }}>

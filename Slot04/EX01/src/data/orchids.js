@@ -4,7 +4,7 @@ const orchids = [
         orchidName: "Ceasar 4N",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
-        category: "Dendrobium",
+        categoryId: "c1",
         isSpecial: true,
         image: "./images/orchid/image4N.png",
     },
@@ -13,7 +13,7 @@ const orchids = [
         orchidName: "Ceasar 3N",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
-        category: "Oncidium",
+        categoryId: "c2",
         isSpecial: true,
         image: "./images/orchid/image3N.png",
     },
@@ -22,7 +22,7 @@ const orchids = [
         orchidName: "Ceasar 2N",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
-        category: "Dendrobium",
+        categoryId: "c1",
         isSpecial: false,
         image: "./images/orchid/image2N.png",
     },
@@ -31,7 +31,7 @@ const orchids = [
         orchidName: "Ceasar 1N",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
-        category: "Dendrobium",
+        categoryId: "c1",
         isSpecial: true,
         image: "./images/orchid/image1N.png",
     },
@@ -40,7 +40,7 @@ const orchids = [
         orchidName: "Ceasar 0N",
         description:
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
-        category: "Dendrobium",
+        categoryId: "c1",
         isSpecial: false,
         image: "./images/orchid/image0N.png",
     },

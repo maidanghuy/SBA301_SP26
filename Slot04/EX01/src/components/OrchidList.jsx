@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 
 import Orchid from "./Orchid";
 import orchidsData from "../data/orchids";
+import categories from "../data/categories";
 
 function OrchidList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,7 +16,7 @@ function OrchidList() {
 
   // 1️⃣ FILTER
   const filteredOrchids = orchidsData.filter((o) => {
-    const matchCategory = category === "All" || o.category === category;
+    const matchCategory = category === "All" || o.categoryId === category;
 
     const matchQuery = o.orchidName.toLowerCase().includes(query.toLowerCase());
 
@@ -49,12 +50,17 @@ function OrchidList() {
               setSearchParams({
                 category: e.target.value,
                 sort: sortBy,
+                q: query,
               })
             }
           >
             <option value="All">All Categories</option>
-            <option value="Dendrobium">Dendrobium</option>
-            <option value="Oncidium">Oncidium</option>
+
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
           </Form.Select>
         </Col>
 
