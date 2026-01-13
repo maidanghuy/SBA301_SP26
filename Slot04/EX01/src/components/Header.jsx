@@ -2,9 +2,29 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
 function Header() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const query = searchParams.get("q") || "";
+  const category = searchParams.get("category") || "All";
+  const sort = searchParams.get("sort") || "name-asc";
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+
+    navigate("/");
+
+    setSearchParams({
+      category,
+      sort,
+      q: value,
+    });
+  };
+
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
@@ -29,6 +49,16 @@ function Header() {
               Contact
             </Nav.Link>
           </Nav>
+
+          {/* SEARCH */}
+          <Form className="d-flex me-3">
+            <Form.Control
+              type="search"
+              placeholder="Search orchid..."
+              value={query}
+              onChange={handleSearchChange}
+            />
+          </Form>
 
           <Nav>
             <Nav.Link as={Link} to="/login">

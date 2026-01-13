@@ -11,12 +11,16 @@ function OrchidList() {
 
   const category = searchParams.get("category") || "All";
   const sortBy = searchParams.get("sort") || "name-asc";
+  const query = searchParams.get("q") || "";
 
   // 1️⃣ FILTER
-  const filteredOrchids =
-    category === "All"
-      ? orchidsData
-      : orchidsData.filter((o) => o.category === category);
+  const filteredOrchids = orchidsData.filter((o) => {
+    const matchCategory = category === "All" || o.category === category;
+
+    const matchQuery = o.orchidName.toLowerCase().includes(query.toLowerCase());
+
+    return matchCategory && matchQuery;
+  });
 
   // 2️⃣ SORT
   const sortedOrchids = [...filteredOrchids].sort((a, b) => {
