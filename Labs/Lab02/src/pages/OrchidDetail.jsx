@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
@@ -14,7 +14,7 @@ function OrchidDetail() {
   const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c.name]));
 
   if (!orchid) {
-    return <h3>Orchid not found</h3>;
+    return <Navigate to="/404" replace />;
   }
 
   return (

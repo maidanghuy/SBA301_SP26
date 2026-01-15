@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OrchidDetail from "./pages/OrchidDetail";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/orchids/:id" element={<OrchidDetail />} />
+
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
