@@ -1,27 +1,29 @@
-// Header.jsx - Navbar component
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Header() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const query = searchParams.get("q") || "";
   const category = searchParams.get("category") || "All";
   const sort = searchParams.get("sort") || "name-asc";
+  const qFromUrl = searchParams.get("q") || "";
 
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
+  const [inputValue, setInputValue] = useState(qFromUrl);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
     navigate("/");
 
     setSearchParams({
       category,
       sort,
-      q: value,
+      q: inputValue,
     });
   };
 
@@ -29,7 +31,7 @@ function Header() {
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
-          Slot04 EX2 React App
+          Lab02 React App
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -50,13 +52,13 @@ function Header() {
             </Nav.Link>
           </Nav>
 
-          {/* SEARCH */}
-          <Form className="d-flex me-3">
+          {/* 🔍 SEARCH */}
+          <Form className="d-flex me-3" onSubmit={handleSubmit}>
             <Form.Control
               type="search"
               placeholder="Search orchid..."
-              value={query}
-              onChange={handleSearchChange}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
           </Form>
 

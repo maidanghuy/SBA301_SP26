@@ -1,10 +1,13 @@
+import { useMemo } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 import { useSearchParams } from "react-router-dom";
-import CategoryFilter from "./CategoryFilter";
 
+import CategoryFilter from "./CategoryFilter";
 import Orchid from "./Orchid";
+
 import orchidsData from "../data/orchids";
 import categories from "../data/categories";
 
@@ -15,39 +18,48 @@ function OrchidList() {
   const sortBy = searchParams.get("sort") || "name-asc";
   const query = searchParams.get("q") || "";
 
-  const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c.name]));
+  // map categoryId → name
+  const categoryMap = useMemo(
+    () => Object.fromEntries(categories.map((c) => [c.id, c.name])),
+    []
+  );
 
-  // 1️⃣ FILTER
-  const filteredOrchids = orchidsData.filter((o) => {
-    const matchCategory = category === "All" || o.categoryId === category;
+  // 🔥 FILTER + SORT WITH useMemo
+  const sortedOrchids = useMemo(() => {
+    // 1️⃣ FILTER
+    const filtered = orchidsData.filter((o) => {
+      const matchCategory = category === "All" || o.categoryId === category;
 
-    const matchQuery = o.orchidName.toLowerCase().includes(query.toLowerCase());
+      const matchQuery = o.orchidName
+        .toLowerCase()
+        .includes(query.toLowerCase());
 
-    return matchCategory && matchQuery;
-  });
+      return matchCategory && matchQuery;
+    });
 
-  // 2️⃣ SORT
-  const sortedOrchids = [...filteredOrchids].sort((a, b) => {
-    switch (sortBy) {
-      case "name-asc":
-        return a.orchidName.localeCompare(b.orchidName);
+    // 2️⃣ SORT
+    return filtered.sort((a, b) => {
+      switch (sortBy) {
+        case "name-asc":
+          return a.orchidName.localeCompare(b.orchidName);
 
-      case "name-desc":
-        return b.orchidName.localeCompare(a.orchidName);
+        case "name-desc":
+          return b.orchidName.localeCompare(a.orchidName);
 
-      case "category": {
-        const catA = categoryMap[a.categoryId] || "";
-        const catB = categoryMap[b.categoryId] || "";
-        return catA.localeCompare(catB);
+        case "category": {
+          const catA = categoryMap[a.categoryId] || "";
+          const catB = categoryMap[b.categoryId] || "";
+          return catA.localeCompare(catB);
+        }
+
+        case "special":
+          return b.isSpecial - a.isSpecial;
+
+        default:
+          return 0;
       }
-
-      case "special":
-        return b.isSpecial - a.isSpecial;
-
-      default:
-        return 0;
-    }
-  });
+    });
+  }, [category, sortBy, query, categoryMap]);
 
   const handleCategoryChange = (newCategory) => {
     setSearchParams({
@@ -87,6 +99,13 @@ function OrchidList() {
           </Form.Select>
         </Col>
       </Row>
+
+      {/* ===== NO RESULT ===== */}
+      {sortedOrchids.length === 0 && (
+        <Alert variant="warning">
+          ❌ No orchids found matching your criteria.
+        </Alert>
+      )}
 
       {/* ===== LIST ===== */}
       <Row xs={1} md={3} className="g-4">
