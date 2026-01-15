@@ -1,5 +1,6 @@
 import Carousel from "react-bootstrap/Carousel";
 import banners from "../data/banner";
+import "./BannerCarousel.css";
 
 function BannerCarousel() {
   return (
@@ -7,17 +8,20 @@ function BannerCarousel() {
       {banners.map((banner) => (
         <Carousel.Item key={banner.id}>
           <img
-            className="d-block w-100"
+            className="d-block w-100 banner-img"
             src={banner.image}
             alt={banner.title}
-            style={{ height: "400px", objectFit: "cover" }}
           />
-
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "rgba(0,0,0,0.4)",
+            }}
+          />
           <Carousel.Caption>
-            <h3 style={{ fontSize: "2.5rem", fontWeight: "bold" }}>
-              {banner.title}
-            </h3>
-            <p style={{ fontSize: "1.2rem" }}>{banner.description}</p>
+            <h3 className="banner-title">{banner.title}</h3>
+            <p className="banner-desc">{banner.description}</p>
           </Carousel.Caption>
         </Carousel.Item>
       ))}
