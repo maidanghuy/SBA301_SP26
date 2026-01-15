@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import BannerCarousel from "./components/BannerCarousel";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -14,7 +15,7 @@ function App() {
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
         <Header />
-
+        <BannerCarousel />
         <main className="flex-fill p-4">
           <Routes>
             <Route path="/" element={<Home />} />
