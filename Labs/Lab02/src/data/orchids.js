@@ -6,7 +6,7 @@ const orchids = [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
         categoryId: "c1",
         isSpecial: true,
-        image: "./images/orchid/image4N.png",
+        image: "/images/orchid/image4N.png",
     },
     {
         id: "2",
@@ -15,7 +15,7 @@ const orchids = [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
         categoryId: "c2",
         isSpecial: true,
-        image: "./images/orchid/image3N.png",
+        image: "/images/orchid/image3N.png",
     },
     {
         id: "3",
@@ -24,7 +24,7 @@ const orchids = [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
         categoryId: "c1",
         isSpecial: false,
-        image: "./images/orchid/image2N.png",
+        image: "/images/orchid/image2N.png",
     },
     {
         id: "4",
@@ -33,7 +33,7 @@ const orchids = [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
         categoryId: "c1",
         isSpecial: true,
-        image: "./images/orchid/image1N.png",
+        image: "/images/orchid/image1N.png",
     },
     {
         id: "5",
@@ -42,7 +42,7 @@ const orchids = [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
         categoryId: "c1",
         isSpecial: false,
-        image: "./images/orchid/image0N.png",
+        image: "/images/orchid/image0N.png",
     },
 ];
 
