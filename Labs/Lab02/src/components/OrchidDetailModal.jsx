@@ -16,7 +16,7 @@ function OrchidDetailModal({ show, handleClose, orchid }) {
 
       <Modal.Body>
         <img
-          src={`/${orchid.image}`}
+          src={`${orchid.image}`}
           alt={orchid.orchidName}
           className="img-fluid rounded mb-3"
         />

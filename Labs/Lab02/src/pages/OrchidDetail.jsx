@@ -26,7 +26,7 @@ function OrchidDetail() {
       <Card className="shadow">
         <Card.Img
           variant="top"
-          src={`/${orchid.image}`}
+          src={`${orchid.image}`}
           style={{ maxHeight: "600px", objectFit: "cover" }}
         />
 

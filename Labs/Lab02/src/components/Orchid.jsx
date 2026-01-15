@@ -14,7 +14,7 @@ function Orchid({ orchid }) {
     <Card className="h-100 shadow-sm">
       <Card.Img
         variant="top"
-        src={`/${orchid.image}`}
+        src={`${orchid.image}`}
         alt={orchid.orchidName}
         style={{ height: "200px", objectFit: "cover" }}
       />
