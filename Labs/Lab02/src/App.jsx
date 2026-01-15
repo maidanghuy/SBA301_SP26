@@ -1,28 +1,44 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import AuthProvider from "./context/AuthProvider";
+import ProtectedRoute from "./routes/ProtectedRoute";
+
 import MainLayout from "./layouts/MainLayout";
 
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OrchidDetail from "./pages/OrchidDetail";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+      <AuthProvider>
+        <Routes>
+          {/* 🔓 PUBLIC */}
+          <Route path="/login" element={<Login />} />
 
-          <Route path="/orchids/:id" element={<OrchidDetail />} />
+          {/* 🔐 PROTECTED LAYOUT */}
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <MainLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="orchids/:id" element={<OrchidDetail />} />
 
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+            <Route path="404" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
