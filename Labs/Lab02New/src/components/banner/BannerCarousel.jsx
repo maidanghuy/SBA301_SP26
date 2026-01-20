@@ -1,5 +1,5 @@
 import Carousel from "react-bootstrap/Carousel";
-import banners from "../data/banner";
+import banners from "../../data/banner";
 import "./BannerCarousel.css";
 
 function BannerCarousel() {

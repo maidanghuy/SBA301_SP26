@@ -1,4 +1,4 @@
-import OrchidList from "../components/OrchidList";
+import OrchidList from "../../components/orchid/OrchidList";
 
 function Home() {
   return (

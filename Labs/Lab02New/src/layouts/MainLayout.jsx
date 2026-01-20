@@ -1,6 +1,6 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import BannerCarousel from "../components/BannerCarousel";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
+import BannerCarousel from "../components/banner/BannerCarousel";
 import { Outlet } from "react-router-dom";
 
 function MainLayout() {

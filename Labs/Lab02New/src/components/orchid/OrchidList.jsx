@@ -5,11 +5,11 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useSearchParams } from "react-router-dom";
 
-import CategoryFilter from "./CategoryFilter";
-import Orchid from "./Orchid";
+import CategoryFilter from "../filters/CategoryFilter";
+import Orchid from "./OrchidCard";
 
-import orchidsData from "../data/orchids";
-import categories from "../data/categories";
+import orchidsData from "../../data/orchids";
+import categories from "../../data/categories";
 
 function OrchidList() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,7 +21,7 @@ function OrchidList() {
   // map categoryId → name
   const categoryMap = useMemo(
     () => Object.fromEntries(categories.map((c) => [c.id, c.name])),
-    []
+    [],
   );
 
   // 🔥 FILTER + SORT WITH useMemo

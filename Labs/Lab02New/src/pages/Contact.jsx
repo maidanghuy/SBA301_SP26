@@ -2,7 +2,7 @@ import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import ContactResultModal from "../components/ContactResultModal";
+import ContactResultModal from "../components/common/ContactResultModal";
 
 function Contact() {
   const [showModal, setShowModal] = useState(false);

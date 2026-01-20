@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { AuthProvider } from "./context/AuthProvider";
+import { AuthProvider } from "./store/auth/AuthProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 import MainLayout from "./layouts/MainLayout";
 
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import OrchidDetail from "./pages/OrchidDetail";
-import Login from "./pages/Login";
+import OrchidDetail from "./pages/OrchidDetail/OrchidDetail";
+import Login from "./pages/Auth/Login";
 import NotFound from "./pages/NotFound";
 
 function App() {

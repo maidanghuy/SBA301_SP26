@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import useAuth from "../context/useAuth";
+import useAuth from "../../hooks/useAuth";
 
 function Header() {
   const { user, logout } = useAuth();

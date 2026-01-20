@@ -3,8 +3,8 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 
-import orchids from "../data/orchids";
-import categories from "../data/categories";
+import orchids from "../../data/orchids";
+import categories from "../../data/categories";
 
 function OrchidDetail() {
   const { id } = useParams();
