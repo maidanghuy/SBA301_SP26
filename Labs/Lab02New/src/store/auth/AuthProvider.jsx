@@ -8,12 +8,28 @@ const initialState = {
   error: null,
 };
 
+const getInitialState = () => {
+  const savedUser = localStorage.getItem("user");
+
+  if (savedUser) {
+    return {
+      user: JSON.parse(savedUser),
+      isAuthenticated: true,
+      loading: false,
+      error: null,
+    };
+  }
+
+  return initialState;
+};
+
 function authReducer(state, action) {
   switch (action.type) {
     case "LOGIN_START":
       return { ...state, loading: true, error: null };
 
     case "LOGIN_SUCCESS":
+      localStorage.setItem("user", JSON.stringify(action.payload));
       return {
         ...state,
         user: action.payload,
@@ -31,6 +47,7 @@ function authReducer(state, action) {
       };
 
     case "LOGOUT":
+      localStorage.removeItem("user");
       return initialState;
 
     default:
@@ -39,7 +56,7 @@ function authReducer(state, action) {
 }
 
 export function AuthProvider({ children }) {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const [state, dispatch] = useReducer(authReducer, null, getInitialState);
 
   const login = (email, password) => {
     dispatch({ type: "LOGIN_START" });
