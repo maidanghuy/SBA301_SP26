@@ -1,32 +1,82 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import AuthContext from "./AuthContext";
 
-function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem("user");
-    return savedUser ? JSON.parse(savedUser) : null;
-  });
+const initialState = {
+  user: null,
+  isAuthenticated: false,
+  loading: false,
+  error: null,
+};
 
-  const login = (username, password) => {
-    if (username === "admin" && password === "123456") {
-      const userData = { username };
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
-      return true;
-    }
-    return false;
+function authReducer(state, action) {
+  switch (action.type) {
+    case "LOGIN_START":
+      return { ...state, loading: true, error: null };
+
+    case "LOGIN_SUCCESS":
+      return {
+        ...state,
+        user: action.payload,
+        isAuthenticated: true,
+        loading: false,
+      };
+
+    case "LOGIN_FAILURE":
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        loading: false,
+        error: action.payload,
+      };
+
+    case "LOGOUT":
+      return initialState;
+
+    default:
+      return state;
+  }
+}
+
+export function AuthProvider({ children }) {
+  const [state, dispatch] = useReducer(authReducer, initialState);
+
+  const login = (email, password) => {
+    dispatch({ type: "LOGIN_START" });
+
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (email === "admin@gmail.com" && password === "123456") {
+          const user = { email, name: "Admin" };
+          dispatch({ type: "LOGIN_SUCCESS", payload: user });
+          resolve({ ok: true });
+        } else {
+          dispatch({
+            type: "LOGIN_FAILURE",
+            payload: "Email hoặc mật khẩu không đúng",
+          });
+          resolve({ ok: false });
+        }
+      }, 800);
+    });
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
+    dispatch({ type: "LOGOUT" });
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+        loading: state.loading,
+        error: state.error,
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
 }
-
-export default AuthProvider;

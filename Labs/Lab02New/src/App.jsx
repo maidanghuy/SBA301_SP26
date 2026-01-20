@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import AuthProvider from "./context/AuthProvider";
+import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
 import MainLayout from "./layouts/MainLayout";
@@ -17,10 +17,10 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* 🔓 PUBLIC */}
+          {/* PUBLIC */}
           <Route path="/login" element={<Login />} />
 
-          {/* 🔐 PROTECTED LAYOUT */}
+          {/* PROTECTED */}
           <Route
             path="/"
             element={
@@ -33,8 +33,6 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="orchids/:id" element={<OrchidDetail />} />
-
-            <Route path="404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

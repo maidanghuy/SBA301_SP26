@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../context/useAuth";
+import useAuth from "../context/useAuth";
 
 function Header() {
   const { user, logout } = useAuth();
@@ -70,7 +70,7 @@ function Header() {
               </Nav.Link>
             ) : (
               <>
-                <Navbar.Text className="me-3">👋 {user.username}</Navbar.Text>
+                <Navbar.Text className="me-3">👋 {user.email}</Navbar.Text>
                 <Button variant="outline-light" onClick={handleLogout}>
                   Logout
                 </Button>

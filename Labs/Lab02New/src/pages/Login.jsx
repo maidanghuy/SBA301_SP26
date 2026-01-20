@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../context/useAuth";
+import useAuth from "../context/useAuth";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import Card from "react-bootstrap/Card";
 
 function Login() {
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,17 +18,18 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (!username || !password) {
       setError("Username và password không được để trống");
       return;
     }
 
-    const success = login(username, password);
+    const result = await login(username, password);
 
-    if (!success) {
+    if (!result.ok) {
       setError("Sai username hoặc password");
       return;
     }
@@ -60,12 +62,9 @@ function Login() {
             />
           </Form.Group>
 
-          <div className="d-flex justify-content-between">
-            <Button type="submit">Login</Button>
-            <Button variant="secondary" onClick={() => setError("")}>
-              Cancel
-            </Button>
-          </div>
+          <Button type="submit" disabled={loading} className="w-100">
+            {loading ? "Logging in..." : "Login"}
+          </Button>
         </Form>
       </Card.Body>
     </Card>
