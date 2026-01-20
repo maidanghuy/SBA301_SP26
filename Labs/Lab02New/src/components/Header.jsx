@@ -4,11 +4,12 @@ import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useAuth from "../context/useAuth";
 
 function Header() {
   const { user, logout } = useAuth();
+  const [scrolled, setScrolled] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -30,8 +31,22 @@ function Header() {
     navigate("/login");
   };
 
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+    <Navbar
+      bg="dark"
+      variant="dark"
+      expand="lg"
+      className={scrolled ? "fixed-top shadow" : ""}
+    >
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
           Lab02New React App
@@ -70,7 +85,9 @@ function Header() {
               </Nav.Link>
             ) : (
               <>
-                <Navbar.Text className="me-3">👋 {user.email}</Navbar.Text>
+                {user && (
+                  <Navbar.Text className="me-3">👋 {user.name}</Navbar.Text>
+                )}
                 <Button variant="outline-light" onClick={handleLogout}>
                   Logout
                 </Button>
