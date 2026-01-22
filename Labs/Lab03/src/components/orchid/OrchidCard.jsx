@@ -3,40 +3,33 @@ import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import { useNavigate } from "react-router-dom";
 
-import categories from "../../data/categories";
-
-function Orchid({ orchid }) {
+function Orchid({ orchid, categoryMap = {} }) {
   const navigate = useNavigate();
-
-  const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c.name]));
 
   return (
     <Card className="h-100 shadow-sm">
       <Card.Img
         variant="top"
-        src={`${orchid.image}`}
+        src={orchid.image}
         alt={orchid.orchidName}
         style={{ height: "200px", objectFit: "cover" }}
       />
 
       <Card.Body className="d-flex flex-column">
-        <Card.Title className="d-flex justify-content-between align-items-center">
+        <Card.Title className="d-flex justify-content-between">
           {orchid.orchidName}
           {orchid.isSpecial && <Badge bg="danger">Special</Badge>}
         </Card.Title>
 
         <Card.Subtitle className="mb-2 text-muted">
-          Category: {categoryMap[orchid.categoryId]}
+          Category: {categoryMap[orchid.categoryId] || "Unknown"}
         </Card.Subtitle>
 
-        <Card.Text className="flex-grow-1" style={{ fontSize: "0.9rem" }}>
-          {orchid.description.substring(0, 80)}...
+        <Card.Text className="flex-grow-1">
+          {orchid.description?.substring(0, 80)}...
         </Card.Text>
 
-        <Button
-          variant="primary"
-          onClick={() => navigate(`/orchids/${orchid.id}`)}
-        >
+        <Button onClick={() => navigate(`/orchids/${orchid.id}`)}>
           View Detail
         </Button>
       </Card.Body>

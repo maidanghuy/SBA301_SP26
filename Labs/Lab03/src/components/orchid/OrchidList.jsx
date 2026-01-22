@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
 import CategoryFilter from "../filters/CategoryFilter";
 import Orchid from "./OrchidCard";
@@ -68,6 +69,10 @@ function OrchidList() {
     });
   };
 
+  const categoryMap = useMemo(() => {
+    return Object.fromEntries(categories.map((c) => [c.id, c.name]));
+  }, [categories]);
+
   return (
     <>
       {/* ===== FILTER ===== */}
@@ -109,7 +114,7 @@ function OrchidList() {
       <Row xs={1} md={3} className="g-4">
         {orchids.map((orchid) => (
           <Col key={orchid.id}>
-            <Orchid orchid={orchid} />
+            <Orchid orchid={orchid} categoryMap={categoryMap} />
           </Col>
         ))}
       </Row>
