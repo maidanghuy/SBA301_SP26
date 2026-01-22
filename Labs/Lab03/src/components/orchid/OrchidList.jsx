@@ -8,6 +8,7 @@ import { useMemo } from "react";
 
 import CategoryFilter from "../filters/CategoryFilter";
 import Orchid from "./OrchidCard";
+import CreateOrchidCard from "./CreateOrchidCard";
 
 import { orchidService } from "../../api/orchidService";
 import { categoryService } from "../../api/categoryService";
@@ -117,6 +118,11 @@ function OrchidList() {
             <Orchid orchid={orchid} categoryMap={categoryMap} />
           </Col>
         ))}
+
+        {/* ➕ CREATE CARD */}
+        <Col>
+          <CreateOrchidCard />
+        </Col>
       </Row>
     </>
   );

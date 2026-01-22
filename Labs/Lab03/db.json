@@ -19,7 +19,6 @@
       "description": "Vẻ đẹp sang trọng lan đột biến."
     }
   ],
-
   "categories": [
     {
       "id": "c1",
@@ -30,7 +29,6 @@
       "name": "Oncidium"
     }
   ],
-
   "orchids": [
     {
       "id": "1",
@@ -69,8 +67,8 @@
       "orchidName": "Ceasar 0N",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta lobortis ex. Morbi cursus consectetur diam, non lobortis massa gravida eu.",
       "categoryId": "c1",
-      "isSpecial": false,
-      "image": "/images/orchid/image0N.png"
+      "image": "/images/orchid/image0N.png",
+      "isSpecial": false
     }
   ]
 }

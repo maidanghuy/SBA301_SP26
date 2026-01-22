@@ -1,14 +1,18 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
+import Stack from "react-bootstrap/Stack";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-import { useEffect, useState } from "react";
 import { orchidService } from "../../api/orchidService";
 import { categoryService } from "../../api/categoryService";
 
 function OrchidDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [orchid, setOrchid] = useState(null);
   const [categoryMap, setCategoryMap] = useState({});
@@ -26,25 +30,66 @@ function OrchidDetail() {
 
   return (
     <>
-      <Button as={Link} to="/" className="mb-3">
-        ← Back to Home
-      </Button>
+      {/* Action Bar */}
+      <Stack direction="horizontal" gap={2} className="mb-4">
+        <Button as={Link} to="/" variant="outline-secondary">
+          ← Back
+        </Button>
 
-      <Card className="shadow">
-        <Card.Img variant="top" src={orchid.image} />
+        <Button
+          variant="warning"
+          onClick={() => navigate(`/orchids/${orchid.id}/edit`)}
+        >
+          Edit
+        </Button>
 
-        <Card.Body>
-          <Card.Title className="d-flex justify-content-between">
-            {orchid.orchidName}
-            {orchid.isSpecial && <Badge bg="danger">Special</Badge>}
-          </Card.Title>
+        <Button
+          variant="danger"
+          onClick={async () => {
+            if (window.confirm("Delete this orchid?")) {
+              await orchidService.delete(orchid.id);
+              navigate("/");
+            }
+          }}
+        >
+          Delete
+        </Button>
+      </Stack>
 
-          <Card.Subtitle className="mb-3 text-muted">
-            Category: {categoryMap[orchid.categoryId]}
-          </Card.Subtitle>
+      <Card className="shadow-lg border-0">
+        <Row className="g-0">
+          {/* Image */}
+          <Col md={5}>
+            <Card.Img
+              src={orchid.image}
+              alt={orchid.orchidName}
+              style={{
+                height: "100%",
+                objectFit: "cover",
+                borderTopLeftRadius: "0.5rem",
+                borderBottomLeftRadius: "0.5rem",
+              }}
+            />
+          </Col>
 
-          <Card.Text>{orchid.description}</Card.Text>
-        </Card.Body>
+          {/* Content */}
+          <Col md={7}>
+            <Card.Body>
+              <Card.Title className="d-flex align-items-center gap-2">
+                <span className="fs-4 fw-bold">{orchid.orchidName}</span>
+                {orchid.isSpecial && <Badge bg="danger">Special</Badge>}
+              </Card.Title>
+
+              <Card.Subtitle className="mb-3 text-muted">
+                🌸 Category: {categoryMap[orchid.categoryId] || "Unknown"}
+              </Card.Subtitle>
+
+              <Card.Text style={{ lineHeight: 1.7 }}>
+                {orchid.description}
+              </Card.Text>
+            </Card.Body>
+          </Col>
+        </Row>
       </Card>
     </>
   );
