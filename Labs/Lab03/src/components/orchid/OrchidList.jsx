@@ -1,65 +1,64 @@
-import { useMemo } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import CategoryFilter from "../filters/CategoryFilter";
 import Orchid from "./OrchidCard";
 
-import orchidsData from "../../data/orchids";
-import categories from "../../data/categories";
+import { orchidService } from "../../api/orchidService";
+import { categoryService } from "../../api/categoryService";
 
 function OrchidList() {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [orchids, setOrchids] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const category = searchParams.get("category") || "All";
   const sortBy = searchParams.get("sort") || "name-asc";
   const query = searchParams.get("q") || "";
 
-  // map categoryId → name
-  const categoryMap = useMemo(
-    () => Object.fromEntries(categories.map((c) => [c.id, c.name])),
-    [],
-  );
+  // load categories once
+  useEffect(() => {
+    categoryService.getAll().then((res) => setCategories(res.data));
+  }, []);
 
-  // 🔥 FILTER + SORT WITH useMemo
-  const sortedOrchids = useMemo(() => {
-    // 1️⃣ FILTER
-    const filtered = orchidsData.filter((o) => {
-      const matchCategory = category === "All" || o.categoryId === category;
+  // 🔥 CALL API WHEN QUERY CHANGES
+  useEffect(() => {
+    let isMounted = true;
 
-      const matchQuery = o.orchidName
-        .toLowerCase()
-        .includes(query.toLowerCase());
+    const fetchData = async () => {
+      setLoading(true);
 
-      return matchCategory && matchQuery;
-    });
+      try {
+        const res = await orchidService.search({
+          category,
+          sort: sortBy,
+          q: query,
+        });
 
-    // 2️⃣ SORT
-    return filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "name-asc":
-          return a.orchidName.localeCompare(b.orchidName);
-
-        case "name-desc":
-          return b.orchidName.localeCompare(a.orchidName);
-
-        case "category": {
-          const catA = categoryMap[a.categoryId] || "";
-          const catB = categoryMap[b.categoryId] || "";
-          return catA.localeCompare(catB);
+        if (isMounted) {
+          setOrchids(res.data);
         }
-
-        case "special":
-          return b.isSpecial - a.isSpecial;
-
-        default:
-          return 0;
+      } catch (err) {
+        console.error(err);
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
-    });
-  }, [category, sortBy, query, categoryMap]);
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [category, sortBy, query]);
 
   const handleCategoryChange = (newCategory) => {
     setSearchParams({
@@ -71,7 +70,7 @@ function OrchidList() {
 
   return (
     <>
-      {/* ===== FILTER & SORT ===== */}
+      {/* ===== FILTER ===== */}
       <Row className="mb-4">
         <Col md={4}>
           <CategoryFilter
@@ -94,22 +93,35 @@ function OrchidList() {
           >
             <option value="name-asc">Name (A → Z)</option>
             <option value="name-desc">Name (Z → A)</option>
-            <option value="category">Category</option>
             <option value="special">Special First</option>
           </Form.Select>
         </Col>
+
+        <Col md={4}>
+          <Form.Control
+            placeholder="Search orchid..."
+            value={query}
+            onChange={(e) =>
+              setSearchParams({
+                category,
+                sort: sortBy,
+                q: e.target.value,
+              })
+            }
+          />
+        </Col>
       </Row>
 
-      {/* ===== NO RESULT ===== */}
-      {sortedOrchids.length === 0 && (
-        <Alert variant="warning">
-          ❌ No orchids found matching your criteria.
-        </Alert>
+      {/* ===== STATUS ===== */}
+      {loading && <Alert variant="info">Loading...</Alert>}
+
+      {!loading && orchids.length === 0 && (
+        <Alert variant="warning">❌ No orchids found.</Alert>
       )}
 
       {/* ===== LIST ===== */}
       <Row xs={1} md={3} className="g-4">
-        {sortedOrchids.map((orchid) => (
+        {orchids.map((orchid) => (
           <Col key={orchid.id}>
             <Orchid orchid={orchid} />
           </Col>

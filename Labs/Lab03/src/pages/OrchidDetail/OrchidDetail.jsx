@@ -3,19 +3,26 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 
-import orchids from "../../data/orchids";
-import categories from "../../data/categories";
+import { useEffect, useState } from "react";
+import { orchidService } from "../../api/orchidService";
+import { categoryService } from "../../api/categoryService";
 
 function OrchidDetail() {
   const { id } = useParams();
 
-  const orchid = orchids.find((o) => o.id === id);
+  const [orchid, setOrchid] = useState(null);
+  const [categoryMap, setCategoryMap] = useState({});
 
-  const categoryMap = Object.fromEntries(categories.map((c) => [c.id, c.name]));
+  useEffect(() => {
+    orchidService.getById(id).then((res) => setOrchid(res.data));
+    categoryService
+      .getAll()
+      .then((res) =>
+        setCategoryMap(Object.fromEntries(res.data.map((c) => [c.id, c.name]))),
+      );
+  }, [id]);
 
-  if (!orchid) {
-    return <Navigate to="/404" replace />;
-  }
+  if (!orchid) return null;
 
   return (
     <>
@@ -24,11 +31,7 @@ function OrchidDetail() {
       </Button>
 
       <Card className="shadow">
-        <Card.Img
-          variant="top"
-          src={`${orchid.image}`}
-          style={{ maxHeight: "600px", objectFit: "cover" }}
-        />
+        <Card.Img variant="top" src={orchid.image} />
 
         <Card.Body>
           <Card.Title className="d-flex justify-content-between">
