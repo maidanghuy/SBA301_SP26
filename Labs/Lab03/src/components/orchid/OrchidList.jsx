@@ -37,7 +37,7 @@ function OrchidList() {
       try {
         const res = await orchidService.search({
           category,
-          sort: sortBy,
+          sortBy: sortBy,
           q: query,
         });
 
@@ -95,20 +95,6 @@ function OrchidList() {
             <option value="name-desc">Name (Z → A)</option>
             <option value="special">Special First</option>
           </Form.Select>
-        </Col>
-
-        <Col md={4}>
-          <Form.Control
-            placeholder="Search orchid..."
-            value={query}
-            onChange={(e) =>
-              setSearchParams({
-                category,
-                sort: sortBy,
-                q: e.target.value,
-              })
-            }
-          />
         </Col>
       </Row>
 
