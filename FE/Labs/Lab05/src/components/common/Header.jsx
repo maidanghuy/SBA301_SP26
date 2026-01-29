@@ -49,7 +49,7 @@ function Header() {
     >
       <Container fluid>
         <Navbar.Brand as={Link} to="/">
-          Lab03 React App
+          Lab05 React App
         </Navbar.Brand>
 
         <Navbar.Toggle />
