@@ -45,12 +45,11 @@ function OrchidForm({ initialData, categories, onSubmit, loading }) {
                 <Form.Label>Category</Form.Label>
                 <Form.Select
                   name="categoryId"
-                  defaultValue={initialData?.categoryId || ""}
-                  required
+                  defaultValue={initialData?.category?.categoryId || ""}
                 >
                   <option value="">-- Select category --</option>
                   {categories.map((c) => (
-                    <option key={c.id} value={c.id}>
+                    <option key={c.categoryId} value={c.categoryId}>
                       {c.name}
                     </option>
                   ))}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
+import { toast } from "react-toastify";
 
 import OrchidForm from "../components/orchid/OrchidForm";
 import { orchidService } from "../api/orchidService";
@@ -17,10 +18,16 @@ function OrchidFormPage() {
   const isEdit = Boolean(id);
 
   useEffect(() => {
-    categoryService.getAll().then((res) => setCategories(res.data));
+    categoryService
+      .getAll()
+      .then((res) => setCategories(res.data.data))
+      .catch(() => toast.error("❌ Failed to load categories"));
 
     if (isEdit) {
-      orchidService.getById(id).then((res) => setInitialData(res.data));
+      orchidService
+        .getById(id)
+        .then((res) => setInitialData(res.data.data))
+        .catch(() => toast.error("❌ Orchid not found"));
     }
   }, [id, isEdit]);
 
@@ -42,13 +49,20 @@ function OrchidFormPage() {
     try {
       if (isEdit) {
         await orchidService.update(id, data);
+        toast.success("✅ Orchid updated successfully!");
       } else {
         await orchidService.create(data);
+        toast.success("🌸 Orchid created successfully!");
       }
 
       navigate("/");
     } catch (err) {
       console.error(err);
+
+      // 👉 lấy message chuẩn từ ApiResponse nếu có
+      const message = err.response?.data?.message || "❌ Something went wrong";
+
+      toast.error(message);
     } finally {
       setLoading(false);
     }

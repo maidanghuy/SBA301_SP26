@@ -21,11 +21,13 @@ function OrchidDetail() {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    orchidService.getById(id).then((res) => setOrchid(res.data));
+    orchidService.getById(id).then((res) => setOrchid(res.data.data));
     categoryService
       .getAll()
       .then((res) =>
-        setCategoryMap(Object.fromEntries(res.data.map((c) => [c.id, c.name]))),
+        setCategoryMap(
+          Object.fromEntries(res.data.data.map((c) => [c.id, c.name])),
+        ),
       );
   }, [id]);
 

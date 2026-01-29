@@ -26,7 +26,7 @@ function OrchidList() {
 
   // load categories once
   useEffect(() => {
-    categoryService.getAll().then((res) => setCategories(res.data));
+    categoryService.getAll().then((res) => setCategories(res.data.data));
   }, []);
 
   // 🔥 CALL API WHEN QUERY CHANGES
@@ -44,7 +44,7 @@ function OrchidList() {
         });
 
         if (isMounted) {
-          setOrchids(res.data);
+          setOrchids(res.data.data);
         }
       } catch (err) {
         console.error(err);
