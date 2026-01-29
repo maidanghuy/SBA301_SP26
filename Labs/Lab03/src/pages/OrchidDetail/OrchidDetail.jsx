@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
+import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
@@ -16,6 +17,8 @@ function OrchidDetail() {
 
   const [orchid, setOrchid] = useState(null);
   const [categoryMap, setCategoryMap] = useState({});
+  const [showDelete, setShowDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     orchidService.getById(id).then((res) => setOrchid(res.data));
@@ -43,15 +46,7 @@ function OrchidDetail() {
           Edit
         </Button>
 
-        <Button
-          variant="danger"
-          onClick={async () => {
-            if (window.confirm("Delete this orchid?")) {
-              await orchidService.delete(orchid.id);
-              navigate("/");
-            }
-          }}
-        >
+        <Button variant="danger" onClick={() => setShowDelete(true)}>
           Delete
         </Button>
       </Stack>
@@ -91,6 +86,53 @@ function OrchidDetail() {
           </Col>
         </Row>
       </Card>
+      <Modal
+        show={showDelete}
+        onHide={() => setShowDelete(false)}
+        centered
+        backdrop="static"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>
+            Are you sure you want to delete <strong>{orchid.orchidName}</strong>
+            ?
+          </p>
+          <p className="text-danger mb-0">This action cannot be undone.</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => setShowDelete(false)}
+            disabled={deleting}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            variant="danger"
+            disabled={deleting}
+            onClick={async () => {
+              try {
+                setDeleting(true);
+                await orchidService.delete(orchid.id);
+                navigate("/");
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setDeleting(false);
+                setShowDelete(false);
+              }
+            }}
+          >
+            {deleting ? "Deleting..." : "Delete"}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }
