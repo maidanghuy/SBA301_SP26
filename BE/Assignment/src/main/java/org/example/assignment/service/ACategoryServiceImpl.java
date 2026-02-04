@@ -1,4 +1,4 @@
-package org.example.assignment.service.impl;
+package org.example.assignment.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.assignment.dto.request.ACategoryCreateRequest;
