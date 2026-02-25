@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.StudentController"
+            prefWidth="900.0" prefHeight="600.0">
+
+    <!-- FORM SECTION -->
+    <VBox spacing="10" layoutX="20" layoutY="20" prefWidth="350">
+
+        <Label text="Student Management" style="-fx-font-size:18px; -fx-font-weight:bold;" />
+
+        <GridPane hgap="10" vgap="10">
+
+            <Label text="Email:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtEmail"
+                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Label text="Password:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <PasswordField fx:id="txtPassword"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+            <Label text="First Name:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtFirstName"
+                       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Last Name:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtLastName"
+                       GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+            <Label text="Marks:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtMarks"
+                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        </GridPane>
+
+        <!-- BUTTONS -->
+        <HBox spacing="10">
+            <Button fx:id="btnAdd"
+                    text="Add Student"
+                    onAction="#handleAddStudent"/>
+
+            <Button fx:id="btnUpdate"
+                    text="Update Student"
+                    onAction="#handleUpdateStudent"/>
+
+            <Button fx:id="btnDelete"
+                    text="Delete Student"
+                    onAction="#handleDeleteStudent"/>
+        </HBox>
+
+    </VBox>
+
+    <!-- TABLE SECTION -->
+    <TableView fx:id="studentTable"
+               layoutX="400" layoutY="20"
+               prefWidth="470" prefHeight="500">
+
+        <columns>
+            <TableColumn fx:id="idColumn"
+                         text="ID"
+                         prefWidth="50"/>
+
+            <TableColumn fx:id="emailColumn"
+                         text="Email"
+                         prefWidth="120"/>
+
+            <TableColumn fx:id="firstNameColumn"
+                         text="First Name"
+                         prefWidth="100"/>
+
+            <TableColumn fx:id="lastNameColumn"
+                         text="Last Name"
+                         prefWidth="100"/>
+
+            <TableColumn fx:id="marksColumn"
+                         text="Marks"
+                         prefWidth="80"/>
+        </columns>
+    </TableView>
+
+</AnchorPane>
