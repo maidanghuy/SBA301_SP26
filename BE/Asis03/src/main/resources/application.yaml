@@ -1,0 +1,30 @@
+server:
+  port: 8081
+  forward-headers-strategy: framework
+
+app:
+  jwt:
+    secret: "CHANGE_ME_TO_A_LONG_RANDOM_SECRET_32+_CHARS"
+    access-expires-minutes: 120
+    refresh-expires-days: 7
+  staff:
+    email: "staff@fuhotel.com"
+    password: "{noop}123456"
+
+spring:
+  application:
+    name: Orchid
+
+  datasource:
+    url: jdbc:mysql://mysql-c7d22b5-huymaidang-1cc4.d.aivencloud.com:19257/sba301_sp26?useSSL=true&requireSSL=true&verifyServerCertificate=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${user_name}
+    password: ${password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  jmx:
+    enabled: false
