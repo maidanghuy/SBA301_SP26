@@ -18,7 +18,6 @@ export default function Rooms() {
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // load nhận tham số searchText
   const load = async (searchText) => {
     setErr("");
     setLoading(true);
@@ -27,7 +26,7 @@ export default function Rooms() {
         searchText ? { q: searchText } : undefined,
       );
       setRooms(res ?? []);
-    } catch (ex) {
+    } catch (ex) { 
       setErr(ex?.message || "Failed to load rooms");
     } finally {
       setLoading(false);

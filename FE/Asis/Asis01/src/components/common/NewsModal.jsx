@@ -22,7 +22,6 @@ export default function NewsModal({
   const [formData, setFormData] = useState(emptyForm);
   const [validated, setValidated] = useState(false);
 
-  // options cho react-select
   const tagOptions = useMemo(() => {
     return (tags || []).map((t) => ({
       value: t.tagId,
@@ -30,7 +29,6 @@ export default function NewsModal({
     }));
   }, [tags]);
 
-  // value hiện tại (react-select cần objects, không phải ids)
   const selectedTagOptions = useMemo(() => {
     const selectedSet = new Set(formData.tagIds || []);
     return tagOptions.filter((opt) => selectedSet.has(opt.value));

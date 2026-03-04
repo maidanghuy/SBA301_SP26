@@ -9,7 +9,7 @@ import org.example.assignment.dto.request.ACategoryCreateRequest;
 import org.example.assignment.dto.request.ACategoryUpdateRequest;
 import org.example.assignment.dto.request.DeleteFlagRequest;
 import org.example.assignment.dto.response.ACategoryResponse;
-import org.example.assignment.service.impl.ACategoryServiceImpl;
+import org.example.assignment.service.ACategoryServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

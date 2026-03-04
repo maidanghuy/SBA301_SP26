@@ -8,7 +8,6 @@ const bookingService = {
 
     cancel: (id) => axiosClient.post(`/bookings/${id}/cancel`),
 
-    // optional (nếu chưa có endpoint thì bỏ)
     myHistory: () => axiosClient.get("/bookings/me"),
 
     // STAFF

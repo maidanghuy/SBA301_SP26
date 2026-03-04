@@ -22,7 +22,7 @@ export default function UserModal({ show, onClose, onSubmit, initialData }) {
             accountName: initialData.accountName ?? "",
             accountEmail: initialData.accountEmail ?? "",
             accountRole: initialData.accountRole ?? "USER",
-            accountPassword: "", // edit: optional
+            accountPassword: "",
           }
         : emptyForm,
     );

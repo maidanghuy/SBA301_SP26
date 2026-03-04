@@ -103,7 +103,6 @@ export default function AuthProvider({ children }) {
     return data;
   };
 
-  // optional: auto refresh profile and token on first load
   useEffect(() => {
     if (token && !user) {
       refreshMe().catch(() => logout());

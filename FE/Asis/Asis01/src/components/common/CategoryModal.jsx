@@ -56,7 +56,6 @@ export default function CategoryModal({
   };
 
   const isNameInvalid = validated && !formData.categoryName.trim();
-
   return (
     <Modal show={show} onHide={onClose} onEnter={handleEnter} backdrop="static">
       <Modal.Header closeButton>

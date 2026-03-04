@@ -1,0 +1,103 @@
+{
+  "systemAccounts": [
+    {
+      "id": "u1",
+      "accountName": "Admin",
+      "accountEmail": "admin@example.com",
+      "accountRole": "ADMIN",
+      "accountPassword": "123456"
+    },
+    {
+      "id": "u2",
+      "accountName": "Editor",
+      "accountEmail": "editor@example.com",
+      "accountRole": "EDITOR",
+      "accountPassword": "123456"
+    }
+  ],
+  "categories": [
+    {
+      "categoryId": "c1",
+      "categoryName": "Technology",
+      "categoryDescription": "Technology related news",
+      "parentCategoryId": null,
+      "isActive": true
+    },
+    {
+      "categoryId": "c2",
+      "categoryName": "AI",
+      "categoryDescription": "Artificial Intelligence news",
+      "parentCategoryId": "c1",
+      "isActive": true
+    },
+    {
+      "categoryId": "c3",
+      "categoryName": "Business",
+      "categoryDescription": "Business and finance news",
+      "parentCategoryId": null,
+      "isActive": true
+    }
+  ],
+  "tags": [
+    {
+      "id": "t1",
+      "tagName": "Java",
+      "note": "Java related articles"
+    },
+    {
+      "id": "t2",
+      "tagName": "Spring Boot",
+      "note": "Spring Boot framework"
+    },
+    {
+      "id": "t3",
+      "tagName": "AI",
+      "note": "Artificial Intelligence"
+    }
+  ],
+  "newsArticles": [
+    {
+      "id": "n1",
+      "newsTitle": "Spring Boot 3 Released",
+      "headline": "Spring Boot 3 brings many improvements",
+      "createdDate": "2025-01-10T09:30:00",
+      "newsContent": "Spring Boot 3 has been officially released with Java 17 support.",
+      "newsSource": "Spring Blog",
+      "categoryId": "c1",
+      "newsStatus": "PUBLISHED",
+      "createdById": "u1",
+      "updatedById": "u2",
+      "modifiedDate": "2025-01-11T10:00:00"
+    },
+    {
+      "id": "n2",
+      "newsTitle": "AI Trends in 2025",
+      "headline": "Top AI trends to watch",
+      "createdDate": "2025-01-15T08:00:00",
+      "newsContent": "AI continues to evolve rapidly in many industries.",
+      "newsSource": "Tech News",
+      "categoryId": "c2",
+      "newsStatus": "DRAFT",
+      "createdById": "u2",
+      "updatedById": null,
+      "modifiedDate": null
+    }
+  ],
+  "newsTags": [
+    {
+      "id": "nt1",
+      "newsArticleId": "n1",
+      "tagId": "t1"
+    },
+    {
+      "id": "nt2",
+      "newsArticleId": "n1",
+      "tagId": "t2"
+    },
+    {
+      "id": "nt3",
+      "newsArticleId": "n2",
+      "tagId": "t3"
+    }
+  ]
+}
