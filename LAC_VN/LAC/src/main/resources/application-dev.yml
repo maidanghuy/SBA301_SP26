@@ -1,0 +1,32 @@
+spring:
+  config:
+    import: "optional:application-secret.yml"
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: ${db.url}
+    username: ${db.username}
+    password: ${db.password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+
+app:
+  jwt:
+    secret: ${jwt.secret}
+    access-expires-minutes: 120
+    refresh-expires-days: 7

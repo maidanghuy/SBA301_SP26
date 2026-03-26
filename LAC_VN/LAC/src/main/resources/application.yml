@@ -1,0 +1,55 @@
+server:
+  port: 8081
+  forward-headers-strategy: framework
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/TechZone?useSSL=false&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  application:
+    name: LACVN
+
+  config:
+    import: optional:classpath:application-secret.yml
+
+  data:
+    redis:
+      host: ${redis.REDIS_HOST}
+      port: ${redis.REDIS_PORT}
+
+  mail:
+    host: ${mail.MAIL_HOST}
+    port: ${mail.MAIL_PORT}
+    username: ${mail.MAIL_USERNAME}
+    password: ${mail.MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  jmx:
+    enabled: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:this-is-a-very-long-secret-key-for-jwt-that-is-at-least-256-bits-long}
+    access-expires-minutes: 120
+    refresh-expires-days: 7
+
+payos:
+  client-id: ${payos.PAYOS_CLIENT_ID}
+  api-key: ${payos.PAYOS_API_KEY}
+  checksum-key: ${payos.PAYOS_CHECKSUM_KEY}
